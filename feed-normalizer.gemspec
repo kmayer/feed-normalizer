@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = %q{feed-normalizer}
-  s.version = "1.5.1"
+  s.version = "1.5.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew A. Smith"]
-  s.date = %q{2008-10-10}
+  s.date = %q{2009-10-15}
   s.description = %q{An extensible Ruby wrapper for Atom and RSS parsers.  Feed normalizer wraps various RSS and Atom parsers, and returns a single unified object graph, regardless of the underlying feed format.}
   s.email = %q{andy@tinnedfruit.org}
   s.extra_rdoc_files = ["History.txt", "License.txt", "Manifest.txt", "README.txt"]

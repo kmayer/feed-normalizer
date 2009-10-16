@@ -1,6 +1,6 @@
 require 'hoe'
 
-Hoe.new("feed-normalizer", "1.5.1") do |s|
+Hoe.new("kmayer-feed-normalizer", "1.5.2") do |s|
   s.author = "Andrew A. Smith"
   s.email = "andy@tinnedfruit.org"
   s.url = "http://feed-normalizer.rubyforge.org/"
@@ -9,6 +9,7 @@ Hoe.new("feed-normalizer", "1.5.1") do |s|
   s.changes = s.paragraphs_of('History.txt', 0..1).join("\n\n")
   s.extra_deps << ["simple-rss", ">= 1.1"]
   s.extra_deps << ["hpricot", ">= 0.6"]
+  s.extra_deps << ["htmlentities", ">= 4.2.0"]
   s.need_zip = true
   s.need_tar = false
 end

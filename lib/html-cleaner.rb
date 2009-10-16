@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'hpricot'
 require 'cgi'
+require 'htmlentities'
 
 module FeedNormalizer
 
@@ -141,7 +142,7 @@ module FeedNormalizer
 
       # unescapes HTML. If xml is true, also converts XML-only named entities to HTML.
       def unescapeHTML(str, xml = true)
-        CGI.unescapeHTML(xml ? str.gsub("&apos;", "&#39;") : str)
+        (HTMLEntities.new).decode(str)
       end
 
       # Adds entities where possible.

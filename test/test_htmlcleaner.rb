@@ -6,10 +6,11 @@ include FeedNormalizer
 class HtmlCleanerTest < Test::Unit::TestCase
 
   def test_unescape
-    assert_equal "' ' &deg;", FeedNormalizer::HtmlCleaner.unescapeHTML("&apos; &#39; &deg;")
-    assert_equal "\" &deg;", FeedNormalizer::HtmlCleaner.unescapeHTML("&quot; &deg;")
-    assert_equal "\"\"\"\"", FeedNormalizer::HtmlCleaner.unescapeHTML("&#34;&#000000000000000000034;&#x22;&#x0000022;")
-    assert_equal "heavily subnet&#8217;d network,", FeedNormalizer::HtmlCleaner.unescapeHTML("heavily subnet&#8217;d network,")
+    assert_equal "' ' \302\260", FeedNormalizer::HtmlCleaner.unescapeHTML("&apos; &#39; &deg;")
+    assert_equal "\" \302\260", FeedNormalizer::HtmlCleaner.unescapeHTML("&quot; &deg;")
+    assert_equal "\"&#000000000000000000034;\"&#x0000022;", FeedNormalizer::HtmlCleaner.unescapeHTML("&#34;&#000000000000000000034;&#x22;&#x0000022;")
+    assert_equal "heavily subnet\342\200\231d network,", FeedNormalizer::HtmlCleaner.unescapeHTML("heavily subnet&#8217;d network,")
+    assert_equal "\302\273", FeedNormalizer::HtmlCleaner.unescapeHTML("&#187;")
   end
 
   def test_add_entities
@@ -62,7 +63,7 @@ class HtmlCleanerTest < Test::Unit::TestCase
     assert_equal "&quot;what's new?&quot;", HtmlCleaner.clean("&quot;what&apos;s new?&quot;")
 
     # Real-world examples from selected feeds
-    assert_equal "I have a heavily subnet&#8217;d/vlan&#8217;d network,", HtmlCleaner.clean("I have a heavily subnet&#8217;d/vlan&#8217;d network,")
+    assert_equal "I have a heavily subnet\342\200\231d/vlan\342\200\231d network,", HtmlCleaner.clean("I have a heavily subnet&#8217;d/vlan&#8217;d network,")
 
     assert_equal "<pre><blockquote>&lt;%= start_form_tag :action =&gt; &quot;create&quot; %&gt;</blockquote></pre>",
                  HtmlCleaner.clean("<pre><blockquote>&lt;%= start_form_tag :action => \"create\" %></blockquote></pre>")
@@ -101,7 +102,7 @@ class HtmlCleanerTest < Test::Unit::TestCase
     assert_equal "what's new", HtmlCleaner.flatten("what&#39;s new")
     assert_equal "&quot;what's new?&quot;", HtmlCleaner.flatten("\"what&apos;s new?\"")
 
-    assert_equal "we&#8217;ve got &lt;a hre", HtmlCleaner.flatten("we&#8217;ve got <a hre")
+    assert_equal "we\342\200\231ve got &lt;a hre", HtmlCleaner.flatten("we&#8217;ve got <a hre")
 
     assert_equal "http://example.org", HtmlCleaner.flatten("http://example.org")
     assert_equal "http://example.org/proc?a&amp;b", HtmlCleaner.flatten("http://example.org/proc?a&b")
